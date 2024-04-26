@@ -1,12 +1,14 @@
 .container {
-  padding-bottom: 0;
+  padding: 30px;
   height: 100px;
   display: flex;
   align-items: center !important;
+  gap: 10px;
 }
-
-::ng-deep ion-toolbar.container ion-title {
+.container h3 {
+  margin: 0;
+  font-weight: bold;
+  color: #ff3d00;
   font-size: 24px;
-  font-weight: 700;
-  padding-left: 30px;
+  font-family: "Roboto", sans-serif;
 }
