@@ -6,6 +6,9 @@ import {
   IonContent,
   IonIcon,
   IonButton,
+  IonGrid,
+  IonCol,
+  IonRow,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { chevronForwardOutline } from 'ionicons/icons';
@@ -15,7 +18,17 @@ import { chevronForwardOutline } from 'ionicons/icons';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonIcon, IonHeader, IonToolbar, IonTitle, IonContent, IonButton],
+  imports: [
+    IonRow,
+    IonCol,
+    IonGrid,
+    IonIcon,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButton,
+  ],
 })
 export class HomePage {
   constructor() {
