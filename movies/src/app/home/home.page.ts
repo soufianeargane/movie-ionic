@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   IonHeader,
   IonToolbar,
@@ -31,9 +32,16 @@ import { chevronForwardOutline } from 'ionicons/icons';
   ],
 })
 export class HomePage {
-  constructor() {
+  constructor(private router: Router) {
     addIcons({
       chevronForwardOutline,
     });
+  }
+
+  navigateToMovie(id: string) {
+    console.log(`Navigating to movie with id: ${id}`);
+    setTimeout(() => {
+      this.router.navigate(['/movie', id]);
+    }, 200);
   }
 }
