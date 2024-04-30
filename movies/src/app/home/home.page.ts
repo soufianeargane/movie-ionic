@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   IonHeader,
@@ -13,6 +13,8 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { chevronForwardOutline } from 'ionicons/icons';
+import { MovieServiceService } from '../services/movie-service.service';
+import { Movie } from '../model/movie';
 
 @Component({
   selector: 'app-home',
@@ -31,17 +33,42 @@ import { chevronForwardOutline } from 'ionicons/icons';
     IonButton,
   ],
 })
-export class HomePage {
-  constructor(private router: Router) {
+export class HomePage implements OnInit {
+  constructor(
+    private router: Router,
+    private movieService: MovieServiceService
+  ) {
     addIcons({
       chevronForwardOutline,
     });
   }
 
-  navigateToMovie(id: string) {
-    console.log(`Navigating to movie with id: ${id}`);
+  isFetching = false;
+  error = null;
+  movies: Movie[] = [];
+
+  navigateToMovie(id: number) {
     setTimeout(() => {
       this.router.navigate(['/movie', id]);
     }, 200);
+  }
+
+  getMovies() {
+    this.isFetching = true;
+    this.movieService.getMovies().subscribe(
+      (movies) => {
+        this.isFetching = false;
+        this.movies = movies;
+      },
+      (error) => {
+        console.log(error);
+        this.isFetching = false;
+        this.error = error.message;
+      }
+    );
+  }
+
+  ngOnInit() {
+    this.getMovies();
   }
 }
