@@ -1,0 +1,69 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+.content_container {
+  height: 100%;
+}
+.image-holder {
+  height: 70%;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.button-holder {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.image-holder .movie_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5%;
+  .movie_season {
+    color: #23cd55;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: "Inter", sans-serif;
+  }
+  .movie_title {
+    color: #ff3d00;
+    font-size: 24px;
+    font-weight: 600;
+    font-family: "Inter", sans-serif;
+    letter-spacing: 2px;
+  }
+  .movie_tags {
+    display: flex;
+    gap: 10px;
+    span {
+      background-color: #cbc8c8;
+      color: white;
+      font-size: 12px;
+      font-weight: 500;
+      font-family: "Inter", sans-serif;
+      padding: 5px 10px;
+      border-radius: 5px;
+      background-color: rgba(197, 191, 191, 0.5);
+    }
+  }
+}
+
+.button-holder .watch-button {
+  width: 80%;
+  background-color: #f44336;
+  font-weight: 300;
+  font-family: "Inter", sans-serif;
+  color: white;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+  padding: 10px 30px;
+  border-radius: 19px;
+}
