@@ -1,0 +1,23 @@
+<ion-content>
+  <div class="container">
+    <h3>Favorites Movies</h3>
+    <div class="cards">
+      @for(movie of movies; track movie.id){
+      <div class="card">
+        <div
+          class="image-holder"
+          style="background-image: url('{{ movie.image_path }}')"
+        ></div>
+        <h5>
+          {{ movie.title }}
+        </h5>
+        <div class="heart"></div>
+      </div>
+      }
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <app-tabs></app-tabs>
+</ion-footer>

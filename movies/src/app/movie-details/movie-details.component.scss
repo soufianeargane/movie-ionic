@@ -67,3 +67,12 @@
   padding: 10px 30px;
   border-radius: 19px;
 }
+.fav {
+  background-color: rgb(157, 177, 130) !important;
+  margin-top: 10px;
+}
+// if disabled
+.fav:disabled {
+  background-color: #ccc !important;
+  cursor: not-allowed;
+}

@@ -21,14 +21,28 @@
           {{ movie.title }}
         </div>
         <div class="movie_tags">
-          <span>15+</span>
-          <span>Adventure</span>
-          <span>Animation</span>
+          @for(tag of movie.tags; track tag) {
+          <span>
+            {{ tag }}
+          </span>
+          }
         </div>
       </div>
     </div>
     <div class="button-holder">
       <button class="watch-button">Watch Now</button>
     </div>
+    <div class="button-holder">
+      <button
+        [disabled]="movie.the_movie_fav"
+        (click)="addToFav(movie.id)"
+        class="watch-button fav"
+      >
+        add to fav
+      </button>
+    </div>
   </div>
 </ion-content>
+<ion-footer>
+  <app-tabs></app-tabs>
+</ion-footer>

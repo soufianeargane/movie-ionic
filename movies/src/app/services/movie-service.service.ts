@@ -13,10 +13,10 @@ export class MovieServiceService {
   private API_URL = environment.API_URL;
 
   getMovies(): Observable<Movie[]> {
-    return this.http.get<Movie[]>(this.API_URL);
+    return this.http.get<Movie[]>(this.API_URL + '/movies');
   }
 
-  getMovieById(id: number): Observable<Movie> {
-    return this.http.get<Movie>(`${this.API_URL}/${id}`);
+  getMovieById(id: number, userId: number): Observable<Movie> {
+    return this.http.get<Movie>(`${this.API_URL}/movies/${id}/${userId}`);
   }
 }

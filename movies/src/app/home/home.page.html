@@ -23,7 +23,7 @@
             (click)="navigateToMovie(movie.id)"
             class="image_holder"
             style="
-              background-image: url('../../assets/images/rectangle_40.png');
+              background-image: url('{{ movie.image_path }}');
             "
           ></div>
           <div class="image_title">{{ movie.title }}</div>
@@ -33,3 +33,7 @@
     </ion-grid>
   </div>
 </ion-content>
+
+<ion-footer>
+  <app-tabs></app-tabs>
+</ion-footer>

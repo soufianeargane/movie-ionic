@@ -10,11 +10,15 @@ import {
   IonGrid,
   IonCol,
   IonRow,
+  IonFooter,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { chevronForwardOutline } from 'ionicons/icons';
 import { MovieServiceService } from '../services/movie-service.service';
 import { Movie } from '../model/movie';
+import { map } from 'rxjs';
+import { Storage } from '@ionic/storage-angular';
+import { TabsComponent } from '../tabs/tabs.component';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +26,7 @@ import { Movie } from '../model/movie';
   styleUrls: ['home.page.scss'],
   standalone: true,
   imports: [
+    IonFooter,
     IonRow,
     IonCol,
     IonGrid,
@@ -31,12 +36,14 @@ import { Movie } from '../model/movie';
     IonTitle,
     IonContent,
     IonButton,
+    TabsComponent,
   ],
 })
 export class HomePage implements OnInit {
   constructor(
     private router: Router,
-    private movieService: MovieServiceService
+    private movieService: MovieServiceService,
+    private storage: Storage
   ) {
     addIcons({
       chevronForwardOutline,
@@ -55,17 +62,31 @@ export class HomePage implements OnInit {
 
   getMovies() {
     this.isFetching = true;
-    this.movieService.getMovies().subscribe(
-      (movies) => {
-        this.isFetching = false;
-        this.movies = movies;
-      },
-      (error) => {
-        console.log(error);
-        this.isFetching = false;
-        this.error = error.message;
-      }
-    );
+    this.movieService
+      .getMovies()
+      .pipe(
+        map((movies) => {
+          return movies.map((movie) => {
+            return {
+              id: movie.id,
+              title: movie.title,
+              image_path: movie.image_path,
+            };
+          });
+        })
+      )
+      .subscribe(
+        (movies) => {
+          this.isFetching = false;
+          console.log(movies);
+          this.movies = movies;
+        },
+        (error) => {
+          console.log(error);
+          this.isFetching = false;
+          this.error = error.message;
+        }
+      );
   }
 
   ngOnInit() {
