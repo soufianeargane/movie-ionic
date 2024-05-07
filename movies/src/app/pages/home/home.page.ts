@@ -14,11 +14,11 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { chevronForwardOutline } from 'ionicons/icons';
-import { MovieServiceService } from '../services/movie-service.service';
-import { Movie } from '../model/movie';
+import { MovieServiceService } from '../../services/movie-service.service';
+import { Movie } from '../../model/movie';
 import { map } from 'rxjs';
 import { Storage } from '@ionic/storage-angular';
-import { TabsComponent } from '../tabs/tabs.component';
+import { TabsComponent } from '../../tabs/tabs.component';
 
 @Component({
   selector: 'app-home',
@@ -78,7 +78,6 @@ export class HomePage implements OnInit {
       .subscribe(
         (movies) => {
           this.isFetching = false;
-          console.log(movies);
           this.movies = movies;
         },
         (error) => {

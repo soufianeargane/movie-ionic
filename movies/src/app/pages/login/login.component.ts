@@ -13,7 +13,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AuthServiceService } from '../services/auth-service.service';
+import { AuthServiceService } from '../../services/auth-service.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -56,13 +56,13 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.authService.login(this.loginForm.value).subscribe(
-      (res) => {
+      (res: any) => {
         this.isSubmitted = false;
         console.log(res);
         console.log('hhhhhhhhhh');
         this.router.navigate(['/movies']);
       },
-      (err) => {
+      (err: any) => {
         this.isSubmitted = false;
         console.error(err);
       }

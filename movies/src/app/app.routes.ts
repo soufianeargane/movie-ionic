@@ -4,23 +4,24 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./login/login.component').then((m) => m.LoginComponent),
+      import('./pages/login/login.component').then((m) => m.LoginComponent),
   },
   {
     path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+    loadComponent: () =>
+      import('./pages/home/home.page').then((m) => m.HomePage),
   },
   {
     path: 'movie/:id',
     loadComponent: () =>
-      import('./movie-details/movie-details.component').then(
+      import('./pages/movie-details/movie-details.component').then(
         (m) => m.MovieDetailsComponent
       ),
   },
   {
     path: 'fav',
     loadComponent: () =>
-      import('./fav/fav.component').then((m) => m.FavComponent),
+      import('./pages/fav/fav.component').then((m) => m.FavComponent),
   },
   {
     path: '**',

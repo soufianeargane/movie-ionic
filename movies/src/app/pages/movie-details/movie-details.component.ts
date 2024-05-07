@@ -12,11 +12,11 @@ import {
   IonContent,
   IonFooter,
 } from '@ionic/angular/standalone';
-import { Movie } from '../model/movie';
-import { MovieServiceService } from '../services/movie-service.service';
+import { Movie } from '../../model/movie';
+import { MovieServiceService } from '../../services/movie-service.service';
 import { Storage } from '@ionic/storage-angular';
-import { TabsComponent } from '../tabs/tabs.component';
-import { FavService } from '../services/fav.service';
+import { TabsComponent } from '../../tabs/tabs.component';
+import { FavService } from '../../services/fav.service';
 
 @Component({
   selector: 'app-movie-details',
@@ -74,7 +74,6 @@ export class MovieDetailsComponent implements OnInit {
     this.movieService
       .getMovieById(this.movieId, this.user_id)
       .subscribe((movie) => {
-        console.log(movie);
         this.movie = movie;
       });
   }

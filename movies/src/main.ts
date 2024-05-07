@@ -11,6 +11,9 @@ import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
 import { provideHttpClient } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { provideStore } from '@ngrx/store';
+import { userReducer } from './app/store/user/user.reducer';
+import { AppState } from './app/store/app.state';
 
 if (environment.production) {
   enableProdMode();
@@ -23,5 +26,8 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes),
     provideHttpClient(),
     importProvidersFrom(IonicStorageModule.forRoot()),
+    provideStore<AppState>({
+      user: userReducer,
+    }),
   ],
 });
