@@ -14,9 +14,12 @@ import {
 } from '@ionic/angular/standalone';
 import { Movie } from '../../model/movie';
 import { MovieServiceService } from '../../services/movie-service.service';
-import { Storage } from '@ionic/storage-angular';
 import { TabsComponent } from '../../tabs/tabs.component';
 import { FavService } from '../../services/fav.service';
+
+import { switchMap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { selectUserState } from 'src/app/store/user/user.selector';
 
 @Component({
   selector: 'app-movie-details',
@@ -41,8 +44,8 @@ export class MovieDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private movieService: MovieServiceService,
-    private storage: Storage,
-    private favService: FavService
+    private favService: FavService,
+    private store: Store
   ) {}
 
   movieId!: number;
@@ -56,32 +59,49 @@ export class MovieDetailsComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.route.params.subscribe((params: Params) => {
-      console.log(`Movie details for movie with id: ${params['id']}`);
-      this.movieId = +params['id'];
-      this.storage.create().then((storage) => {
-        storage.get('user').then((user) => {
-          this.user_id = user.id;
-          this.getMovieDetails();
-        });
-      });
-    });
-    // this.getMovieDetails();
-  }
+    // this.route.params.subscribe((params: Params) => {
+    //   console.log(`Movie details for movie with id: ${params['id']}`);
+    //   this.movieId = +params['id'];
 
-  getMovieDetails() {
-    // Call the getMovieById method from the service
-    this.movieService
-      .getMovieById(this.movieId, this.user_id)
-      .subscribe((movie) => {
-        this.movie = movie;
-      });
+    //   this.store
+    //     .select(selectUserState)
+    //     .pipe(
+    //       switchMap((user) => {
+    //         this.user_id = user.id;
+    //         return this.movieService.getMovieById(this.movieId, this.user_id);
+    //       })
+    //     )
+    //     .subscribe((movie) => {
+    //       this.movie = movie;
+    //     });
+    // });
+    this.showMovie();
   }
 
   addToFav(movieId: number) {
     console.log('Adding to fav' + movieId);
     this.favService.addFavorite(this.user_id, movieId).subscribe((data) => {
       console.log(data);
+      this.showMovie();
+    });
+  }
+
+  showMovie() {
+    this.route.params.subscribe((params: Params) => {
+      console.log(`Movie details for movie with id: ${params['id']}`);
+      this.movieId = +params['id'];
+
+      this.store
+        .select(selectUserState)
+        .pipe(
+          switchMap((user) => {
+            this.user_id = user.id;
+            return this.movieService.getMovieById(this.movieId, this.user_id);
+          })
+        )
+        .subscribe((movie) => {
+          this.movie = movie;
+        });
     });
   }
 }

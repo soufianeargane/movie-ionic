@@ -13,6 +13,18 @@
           formControlName="email"
         ></ion-input>
       </ion-item>
+      @if(loginForm.get('email')?.touched &&
+      loginForm.get('email')?.hasError('email')) {
+      <ion-text color="danger">
+        <p class="error_message">Invalid email</p>
+      </ion-text>
+      } @if(loginForm.get('email')?.touched &&
+      loginForm.get('email')?.hasError('required')) {
+      <ion-text color="danger">
+        <p class="error_message">Email is required</p>
+      </ion-text>
+      }
+
       <ion-item>
         <ion-input
           label="Password"
@@ -22,6 +34,18 @@
           formControlName="password"
         ></ion-input>
       </ion-item>
+      @if(loginForm.get('password')?.touched &&
+      loginForm.get('password')?.hasError('required')) {
+      <ion-text color="danger">
+        <p class="error_message">Password is required</p>
+      </ion-text>
+      } @if(loginForm.get('password')?.touched &&
+      loginForm.get('password')?.hasError('minlength')) {
+      <ion-text color="danger">
+        <p class="error_message">Password must be at least 6 characters long</p>
+      </ion-text>
+      }
+
       <ion-button
         color="danger"
         expand="full"

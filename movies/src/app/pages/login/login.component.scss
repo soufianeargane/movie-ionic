@@ -34,3 +34,20 @@ ion-item {
 ion-button {
   margin-top: 20px;
 }
+
+ion-input.ng-invalid.ng-touched {
+  border: 2px solid red;
+  border-radius: 10px;
+  // first child of ion-input
+  ::ng-deep .input-wrapper {
+    .label-text-wrapper {
+      color: red;
+    }
+  }
+}
+
+.error_message {
+  display: block !important;
+  padding-left: 20px !important;
+  margin-top: 0 !important;
+}

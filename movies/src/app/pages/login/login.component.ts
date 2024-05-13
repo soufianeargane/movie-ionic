@@ -6,6 +6,8 @@ import {
   IonLabel,
   IonButton,
   IonSpinner,
+  IonText,
+  IonIcon,
 } from '@ionic/angular/standalone';
 import {
   FormControl,
@@ -15,12 +17,19 @@ import {
 } from '@angular/forms';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { setUser } from '../../store/user/user.actions';
+import { addIcons } from 'ionicons';
+import { alertCircle } from 'ionicons/icons';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   imports: [
+    IonIcon,
+    IonText,
     IonSpinner,
     IonButton,
     IonLabel,
@@ -28,6 +37,7 @@ import { Router } from '@angular/router';
     IonInput,
     IonList,
     ReactiveFormsModule,
+    CommonModule,
   ],
   standalone: true,
 })
@@ -42,15 +52,21 @@ export class LoginComponent implements OnInit {
   });
   constructor(
     private authService: AuthServiceService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private store: Store
+  ) {
+    addIcons({
+      alertCircle,
+    });
+  }
 
   ngOnInit() {
     console.log('Login component initialized');
+    console.log(this.loginForm);
   }
 
   login() {
-    console.log(this.loginForm.value);
+    console.log(this.loginForm);
     this.isSubmitted = true;
     if (this.loginForm.invalid) {
       return;
@@ -59,6 +75,7 @@ export class LoginComponent implements OnInit {
       (res: any) => {
         this.isSubmitted = false;
         console.log(res);
+        this.store.dispatch(setUser({ value: res }));
         console.log('hhhhhhhhhh');
         this.router.navigate(['/movies']);
       },
